@@ -44,6 +44,7 @@ class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        moveLocation: '',
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -53,6 +54,13 @@ class Game extends React.Component {
     var history = this.state.history.slice(0, this.state.stepNumber + 1);
     var current = history[history.length - 1];
     const squares = current.squares.slice();
+
+    // Record the move location history for display.
+    // Square position 6 (bottom-left) is equivalent to (1, 3).
+    // Use the shared state squares width dimension as rowWidth.
+    const rowWidth = Math.sqrt(this.state.history[0].squares.length);
+    const moveLocation = [(i % rowWidth) + 1, Math.floor(i / rowWidth + 1)].join(', ');
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -61,7 +69,8 @@ class Game extends React.Component {
 
     this.setState({
       history: history.concat([{
-        squares: squares
+        squares: squares,
+        moveLocation: moveLocation,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -87,7 +96,7 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Move #' + move :
+        `Move #${move} (${step.moveLocation})`:
         'Game start';
       return (
         <li key={move}>
