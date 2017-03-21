@@ -16,23 +16,21 @@ class Board extends React.Component {
     return <Square value={squares[i]} onClick={() => this.props.onClick(i)} />;
   }
   render() {
+    // Based on previous hardcoded values of Game state.squares: [0,1,2,3,4,5,6,7,8]
+    // Output squares in the format [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+    const rowWidth = Math.sqrt(this.props.squares.length);
+    let rows = [];
+    for (let i = 0; i < rowWidth; i++) {
+      let rowCells = [];
+      for (let j = 0; j < rowWidth; j++) {
+        const cell = rowWidth * i + j;
+        rowCells.push(<span key={cell}>{this.renderSquare(cell)}</span>);
+      }
+      rows.push(<div className="board-row" key={i}>{rowCells}</div>);
+    }
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {rows}
       </div>
     );
   }
