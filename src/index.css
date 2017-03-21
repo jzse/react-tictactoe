@@ -1,3 +1,4 @@
+/* Elements */
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 1rem;
@@ -7,6 +8,12 @@ ol, ul {
   padding-left: 1.5rem;
 }
 
+/* Utilities */
+.strong {
+  font-weight: 700;
+}
+
+/* Components. */
 .board-row:after {
   clear: both;
   content: "";
@@ -34,6 +41,10 @@ ol, ul {
 
 .square:focus {
   outline: none;
+}
+
+.square--winner {
+  background: #767676;
 }
 
 .kbd-navigation .square:focus {
