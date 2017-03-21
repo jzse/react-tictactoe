@@ -46,6 +46,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      isMovesSortReversed: false,
     };
   }
   handleClick(i) {
@@ -80,6 +81,11 @@ class Game extends React.Component {
       xIsNext: (step % 2) ? false : true,
     });
   }
+  changeMovesSort(isMovesSortReversed) {
+    this.setState({
+      isMovesSortReversed: (isMovesSortReversed) ? false : true,
+    })
+  }
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -109,6 +115,7 @@ class Game extends React.Component {
       );
     });
 
+    const { isMovesSortReversed } = this.state;
     return (
       <div className="game">
         <div>
@@ -119,7 +126,16 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol reversed={isMovesSortReversed ? 'reversed' : ''}>
+            {isMovesSortReversed ? moves.reverse() : moves}
+          </ol>
+
+          <p><strong>Sort: </strong>{isMovesSortReversed ? "Descending" : "Ascending"}</p>
+          <button
+            onClick={() => this.changeMovesSort(isMovesSortReversed)}
+          >
+            Toggle Sort
+          </button>
         </div>
       </div>
     );
