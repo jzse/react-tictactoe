@@ -13,22 +13,24 @@ class Board extends React.Component {
     );
   }
   render() {
-    // Based on previous hardcoded values of Game state.squares: [0,1,2,3,4,5,6,7,8]
+    // Based on previous hardcoded values of Game state.squares: [0, 1, 2, 3, 4, 5, 6, 7, 8]
     // Output squares in the format [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
-    const rowWidth = Math.sqrt(this.props.squares.length);
-    let rows = [];
-    for (let i = 0; i < rowWidth; i++) {
-      let rowCells = [];
-      for (let j = 0; j < rowWidth; j++) {
-        const cell = rowWidth * i + j;
-        rowCells.push(<span key={cell}>{this.renderSquare(cell)}</span>);
-      }
-      rows.push(<div className="board-row" key={i}>{rowCells}</div>);
-    }
+    const rows = Array(Math.sqrt(this.props.squares.length)).fill(null);
+    const cells = rows;
+    const rowsWrap = rows.map((row, i) => {
+      const cellsWrap = cells.map((cell, j) => {
+        const square = (rows.length * i) + j;
+        // TODO Refactor Square component so we can remove this renderSquare.
+        return (
+          <span key={square}>{this.renderSquare(square)}</span>
+        );
+      });
+      return (
+        <div className="board-row" key={i}>{cellsWrap}</div>
+      );
+    });
     return (
-      <div>
-        {rows}
-      </div>
+      <div>{rowsWrap}</div>
     );
   }
 }
