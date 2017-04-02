@@ -22,10 +22,12 @@ class Board extends React.Component {
         const square = (rows.length * i) + j;
         // TODO Refactor Square component so we can remove this renderSquare.
         return (
+          // eslint-disable-next-line react/no-array-index-key
           <span key={square}>{this.renderSquare(square)}</span>
         );
       });
       return (
+        // eslint-disable-next-line react/no-array-index-key
         <div className="board-row" key={i}>{cellsWrap}</div>
       );
     });
