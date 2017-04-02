@@ -12,16 +12,20 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+  const winningLine = lines.find((line) => {
+    const [a, b, c] = line;
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return {
-        winningSquares: lines[i],
-        winningPlayer: squares[a],
-      };
+      return true;
     }
+    return false;
+  });
+  if (!winningLine) {
+    return null;
   }
-  return null;
+  return {
+    winningSquares: winningLine,
+    winningPlayer: squares[winningLine[0]],
+  };
 }
 
 class Game extends React.Component {
