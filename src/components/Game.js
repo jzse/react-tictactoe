@@ -52,7 +52,7 @@ class Game extends React.Component {
     // Square position 6 (bottom-left) is equivalent to (1, 3).
     // Use the shared state squares width dimension as rowWidth.
     const rowWidth = Math.sqrt(this.state.history[0].squares.length);
-    const moveLocation = [i % rowWidth + 1, Math.floor(i / rowWidth + 1)].join(', ');
+    const moveLocation = [(i % rowWidth) + 1, Math.floor((i / rowWidth) + 1)].join(', ');
 
     if (calculateWinner(squares) || squares[i]) {
       return;
